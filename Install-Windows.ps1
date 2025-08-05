@@ -27,33 +27,7 @@ Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Like maybe install office...?"
 Start-Sleep -Seconds 10
 
-#region Install Office
-<#
-.SYNOPSIS
-  Script to install M365 Apps as a Win32 App
-
-.DESCRIPTION
-    Script to install Office as a Win32 App during Autopilot by downloading the latest Office setup exe from evergreen url
-    Running Setup.exe from downloaded files with provided config.xml file. 
-
-.EXAMPLE
-    Without external XML (Requires configuration.xml in the package)
-    powershell.exe -executionpolicy bypass -file InstallM365Apps.ps1
-    With external XML (Requires XML to be provided by URL)  
-    powershell.exe -executionpolicy bypass -file InstallM365Apps.ps1 -XMLURL "https://mydomain.com/xmlfile.xml"
-
-.NOTES
-    Version:        1.2
-    Author:         Jan Ketil Skanke
-    Contact:        @JankeSkanke
-    Creation Date:  01.07.2021
-    Updated:        (2022-23-11)
-    Version history:
-        1.0.0 - (2022-23-10) Script released 
-        1.1.0 - (2022-25-10) Added support for External URL as parameter 
-        1.2.0 - (2022-23-11) Moved from ODT download to Evergreen url for setup.exe 
-        1.2.1 - (2022-01-12) Adding function to validate signing on downloaded setup.exe
-#>
+<#region Install Office
 #region parameters
 #endregion parameters
 
@@ -298,8 +272,8 @@ if ($M365AppsCheck) {
     Write-EventLog -LogName Application -Source "M365Install" -EventID 1007 -EntryType Information -Message "M365Install flag file created"
 }
 #endregion Install Office
+#>
 
-
-Start-Sleep -Seconds 10
+Start-Sleep -Seconds 5
 
 Restart-Computer
