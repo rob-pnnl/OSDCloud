@@ -274,6 +274,6 @@ if ($M365AppsCheck) {
 #endregion Install Office
 #>
 
-Start-Sleep -Seconds 5
+#Start-Sleep -Seconds 5
 
 Restart-Computer
