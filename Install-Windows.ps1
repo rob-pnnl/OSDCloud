@@ -55,11 +55,6 @@ Start-Sleep -Seconds 10
         1.2.1 - (2022-01-12) Adding function to validate signing on downloaded setup.exe
 #>
 #region parameters
-[CmdletBinding()]
-Param (
-    [Parameter(Mandatory = $false)]
-    [string]$XMLUrl
-)
 #endregion parameters
 
 If (!([System.Diagnostics.EventLog]::SourceExists("M365Install"))) {
@@ -303,6 +298,7 @@ if ($M365AppsCheck) {
     Write-EventLog -LogName Application -Source "M365Install" -EventID 1007 -EntryType Information -Message "M365Install flag file created"
 }
 #endregion Install Office
+
 
 Start-Sleep -Seconds 10
 
