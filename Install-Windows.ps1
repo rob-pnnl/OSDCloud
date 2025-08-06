@@ -24,7 +24,7 @@ Write-Host -ForegroundColor Cyan "Start OSDCloud with MY Parameters"
 Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
-Write-Host -ForegroundColor Green "We could do something here? Maybe... lets try chrome?"
+Write-Host -ForegroundColor Green "We could do something here? Maybe..."
 Start-Sleep -Seconds 5
 
 if (-not (Test-Path "C:\Windows\Setup\Scripts")) {
