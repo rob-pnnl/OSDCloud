@@ -24,8 +24,50 @@ Write-Host -ForegroundColor Cyan "Start OSDCloud with MY Parameters"
 Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
-Write-Host -ForegroundColor Green "We could do something here? Maybe..."
-Start-Sleep -Seconds 10
+Write-Host -ForegroundColor Green "We could do something here? Maybe... lets try chrome?"
+Start-Sleep -Seconds 5
+
+if (-not (Test-Path "C:\Windows\Setup\Scripts")) {
+      New-Item -Path "C:\Windows\Setup\Scripts" -ItemType Directory -Force
+}
+
+@"
+  @echo off
+  PowerShell.exe -ExecutionPolicy Bypass -File "%~dp0SetupComplete.ps1"
+  exit /b 0
+"@ | Out-File -FilePath "C:\Windows\Setup\Scripts\SetupComplete.cmd" -Encoding ascii -Force
+
+@"
+  # Create log directory
+  New-Item -Path "C:\OSDCloud\Logs\PostInstall" -ItemType Directory -Force | Out-Null
+
+  # Start transcript logging
+  Start-Transcript -Path "C:\OSDCloud\Logs\PostInstall\ChromeInstall.log" -Force
+
+  # Create temp directory for downloads
+  New-Item -Path "C:\OSDCloud\Temp" -ItemType Directory -Force | Out-Null
+  Set-Location -Path "C:\OSDCloud\Temp"
+
+  # Download Chrome enterprise installer
+  Write-Host "Downloading Chrome Enterprise installer..."
+  Invoke-WebRequest -Uri "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
+  -OutFile "C:\OSDCloud\Temp\chrome_installer.exe"
+
+  # Install Chrome silently
+  Write-Host "Installing Chrome..."
+  Start-Process -FilePath "C:\OSDCloud\Temp\chrome_installer.exe" -ArgumentList "/silent
+  /install" -Wait
+
+  # Clean up
+  Remove-Item -Path "C:\OSDCloud\Temp\chrome_installer.exe" -Force
+  Write-Host "Chrome installation complete"
+
+  Stop-Transcript
+"@ | Out-File -FilePath "C:\Windows\Setup\Scripts\SetupComplete.ps1" -Encoding ascii -Force
+
+Write-Host "Chrome installation script added to SetupComplete.ps1"
+
+
 
 <#region Install Office
 #region parameters
