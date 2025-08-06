@@ -27,12 +27,6 @@ Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe..."
 Start-Sleep -Seconds 5
 
-if (-not (Test-Path "C:\Windows\Setup\Scripts")) {
-      New-Item -Path "C:\Windows\Setup\Scripts" -ItemType Directory -Force
-}
-
-
-
 
 
 <#region Install Office
