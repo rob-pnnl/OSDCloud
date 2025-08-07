@@ -28,8 +28,27 @@ Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe..."
 Start-Sleep -Seconds 10
 
+$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/481e196a-f580-4b50-afda-44ff25dcee2e/public/windows11.0-kb5064489-x64_6640d1a7a2a393bd2db6f97b7eb4fe3907806902.msu"
+$OutputPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
+
+# Create directory
+New-Item -Path "C:\OSDCloud\Updates" -ItemType Directory -Force | Out-Null
+
+# Download
+Write-Host "Downloading Windows Update..." -ForegroundColor Yellow
+try {
+  Invoke-WebRequest -Uri $URL -OutFile $OutputPath -UseBasicParsing
+  Write-Host "Download completed: $OutputPath" -ForegroundColor Green
+}
+catch {
+  Write-Error "Download failed: $($_.Exception.Message)"
+}
+
+
+
 $WindowsPath = "C:\"
-$MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
+#$MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
+$MSUPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
 New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
 $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
