@@ -28,8 +28,8 @@ Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe..."
 Start-Sleep -Seconds 10
 
-$WindowsPath = C:\
-$MSUPath = D:\OSDCloud\Automate\kb5064489.msu
+$WindowsPath = "C:\"
+$MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
 dism /Image:$WindowsPath /Add-Package /PackagePath:$MSUPath
 
 Start-Sleep -Seconds 60
