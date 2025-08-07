@@ -34,6 +34,6 @@ New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
 $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 
-Start-Sleep -Seconds 60
+Start-Sleep -Seconds 30
 
-#Restart-Computer
+Restart-Computer
