@@ -30,7 +30,9 @@ Start-Sleep -Seconds 10
 
 $WindowsPath = "C:\"
 $MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
-dism /Image:$WindowsPath /Add-Package /PackagePath:$MSUPath
+New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
+$scratchDir = "C:\OSDCLoud\scratch"
+dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 
 Start-Sleep -Seconds 60
 
