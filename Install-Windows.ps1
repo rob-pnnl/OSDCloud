@@ -1,5 +1,5 @@
-Write-Host -ForegroundColor Cyan "Starting Rob's Custom OSDCloud ..."
-Start-Sleep -Seconds 5
+Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
+Start-Sleep -Seconds 1
 
 #Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
