@@ -53,7 +53,7 @@ $MSUPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
 New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
 $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
-
+Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
 Start-Sleep -Seconds 30
 
 Restart-Computer
