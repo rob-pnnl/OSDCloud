@@ -37,7 +37,8 @@ New-Item -Path "C:\OSDCloud\Updates" -ItemType Directory -Force | Out-Null
 # Download
 Write-Host "Downloading Windows Update..." -ForegroundColor Yellow
 try {
-  Invoke-WebRequest -Uri $URL -OutFile $OutputPath -UseBasicParsing
+  #Invoke-WebRequest -Uri $URL -OutFile $OutputPath -UseBasicParsing
+  Save-WebFile -SourceURL $URL -DestinationDirectory "C:\OSDCloud\Updates" -DestinationName "windows11.0-kb5064489-x64.msu"
   Write-Host "Download completed: $OutputPath" -ForegroundColor Green
 }
 catch {
