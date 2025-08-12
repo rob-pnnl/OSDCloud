@@ -31,7 +31,7 @@ Start-Sleep -Seconds 10
 #$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/481e196a-f580-4b50-afda-44ff25dcee2e/public/windows11.0-kb5064489-x64_6640d1a7a2a393bd2db6f97b7eb4fe3907806902.msu"
 #$OutputPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
 
-$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu"
+$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu"
 $OutputPath = "C:\OSDCloud\Updates\latestKB.msu"
 # Create directory
 New-Item -Path "C:\OSDCloud\Updates" -ItemType Directory -Force | Out-Null
