@@ -29,7 +29,7 @@ Write-Host -ForegroundColor Green "We could do something here? Maybe..."
 Start-Sleep -Seconds 10
 
 
-<#region INSTALL LATEST CUMULATIVE UPDATE
+#region INSTALL LATEST CUMULATIVE UPDATE
 #$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/481e196a-f580-4b50-afda-44ff25dcee2e/public/windows11.0-kb5064489-x64_6640d1a7a2a393bd2db6f97b7eb4fe3907806902.msu"
 
 $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu"
@@ -60,6 +60,6 @@ $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
 Start-Sleep -Seconds 30
-#endregion INSTALL LATEST CUMULATIVE UPDATE #>
+#endregion INSTALL LATEST CUMULATIVE UPDATE
 
 Restart-Computer
