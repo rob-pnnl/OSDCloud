@@ -30,9 +30,11 @@ Start-Sleep -Seconds 10
 
 
 #region INSTALL LATEST CUMULATIVE UPDATE
-#$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/481e196a-f580-4b50-afda-44ff25dcee2e/public/windows11.0-kb5064489-x64_6640d1a7a2a393bd2db6f97b7eb4fe3907806902.msu"
 
-$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu"
+#$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu" #August 2025
+
+$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7342fa97-e584-4465-9b3d-71e771c9db5b/public/windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu" #Sept 2025
+
 $OutputPath = "C:\OSDCloud\Updates\latestKB.msu"
 # Create directory
 New-Item -Path "C:\OSDCloud\Updates" -ItemType Directory -Force | Out-Null
