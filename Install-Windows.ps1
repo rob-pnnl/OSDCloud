@@ -25,8 +25,8 @@ Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
 Start-OSDCloud -OSName 'Windows 11 24H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
-Write-Host -ForegroundColor Green "We could do something here? Maybe..."
-Start-Sleep -Seconds 10
+Write-Host -ForegroundColor Green "We could do something here? Maybe we check for patches..."
+Start-Sleep -Seconds 5
 
 
 #region INSTALL LATEST CUMULATIVE UPDATE
