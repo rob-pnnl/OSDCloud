@@ -8,7 +8,7 @@ Write-Host "               ======================"
 Write-Host -ForegroundColor Red "                    CONFIRMATION     "
 Write-Host "               ======================"
 Write-Host ""
-$confirmation = Read-Host "This action will wipe your computer, type 'yes' to confirm and proceed"
+$confirmation = Read-Host "   This action will wipe your computer, type 'yes' to confirm and proceed"
 if ($confirmation -ieq "yes") {
   Write-Host "Proceeding with action..." -ForegroundColor Green
   
