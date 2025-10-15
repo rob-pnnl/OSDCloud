@@ -39,7 +39,7 @@ Write-Host -ForegroundColor Cyan "Ejecting ISO"
 #Start OSDCloud ZTI the RIGHT way
 Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
 #Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
-Start-OSDCloud -OSName 'Windows 11 24H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
+Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe we check for patches..."
@@ -50,7 +50,9 @@ Start-Sleep -Seconds 5
 
 #$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu" #August 2025
 
-$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7342fa97-e584-4465-9b3d-71e771c9db5b/public/windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu" #Sept 2025
+# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7342fa97-e584-4465-9b3d-71e771c9db5b/public/windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu" #Sept 2025
+
+$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu" #Oct 2025  25H2
 
 $OutputPath = "C:\OSDCloud\Updates\latestKB.msu"
 # Create directory
