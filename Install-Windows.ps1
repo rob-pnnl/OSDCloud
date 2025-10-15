@@ -1,5 +1,6 @@
-Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
+#Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
+cls
 
 Write-Host -ForegroundColor Red "CONFIRMATION"
 $confirmation = Read-Host "This action will wipe your computer, type 'yes' to confirm and proceed"
