@@ -1,6 +1,7 @@
 #Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
 cls
+<#
 Write-Host ""
 Write-Host ""
 Write-Host "               ======================"
@@ -15,6 +16,7 @@ else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
   Restart-Computer -Force
 }
+#>
 Start-Sleep -Seconds 2
 #Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
