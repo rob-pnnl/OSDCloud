@@ -1,23 +1,23 @@
 #Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
 cls
-
+$Host.UI.RawUI.BackgroundColor = 'Red'
 Write-Host ""
 Write-Host ""
 Write-Host "               ======================"
-Write-Host -ForegroundColor Red "                    CONFIRMATION     "
+Write-Host -ForegroundColor Cyan "                    CONFIRMATION     "
 Write-Host "               ======================"
 Write-Host ""
 $confirmation = Read-Host "   This action will wipe your computer, type 'yes' to confirm and proceed"
 if ($confirmation -ieq "yes") {
   Write-Host "Proceeding with action..." -ForegroundColor Green
-  
+  $Host.UI.RawUI.BackgroundColor = 'DarkBlue'
 }
 else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
   Restart-Computer -Force
 }
-
+Start-Sleep -Seconds 2
 #Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
     Write-Host -ForegroundColor Cyan "Setting Display Resolution to 1600x"
