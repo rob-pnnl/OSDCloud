@@ -37,7 +37,10 @@ Write-Host -ForegroundColor Cyan "Ejecting ISO"
 #Start OSDCloud ZTI the RIGHT way
 Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
 #Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
-Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
+
+#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
+
+Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe we check for patches..."
