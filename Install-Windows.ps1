@@ -9,7 +9,6 @@ if ($confirmation -ieq "yes") {
 }
 else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
-  Start-Sleep -Seconds 2
   Restart-Computer
 }
 
