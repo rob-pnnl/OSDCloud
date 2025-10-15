@@ -1,7 +1,7 @@
 #Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
 cls
-<#
+
 Write-Host ""
 Write-Host ""
 Write-Host "               ======================"
@@ -16,7 +16,7 @@ else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
   Restart-Computer -Force
 }
-#>
+
 Start-Sleep -Seconds 2
 #Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
@@ -40,9 +40,11 @@ Write-Host -ForegroundColor Cyan "Ejecting ISO"
 Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
 #Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
-#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
+# Bypass disk verification and rely on earlier Confirmation
+Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
 
-Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
+# Innate Prompt to verify wiping disk
+#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "We could do something here? Maybe we check for patches..."
