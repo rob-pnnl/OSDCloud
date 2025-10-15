@@ -1,6 +1,18 @@
 Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
 
+Write-Host -ForegroundColor Red "CONFIRMATION"
+$confirmation = Read-Host "This action will wipe your computer, type 'yes' to confirm and proceed"
+if ($confirmation -ieq "yes") {
+  Write-Host "Proceeding with action..." -ForegroundColor Green
+  
+}
+else {
+  Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
+  Start-Sleep -Seconds 2
+  Restart-Computer
+}
+
 #Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
     Write-Host -ForegroundColor Cyan "Setting Display Resolution to 1600x"
