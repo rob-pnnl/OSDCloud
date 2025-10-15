@@ -9,7 +9,7 @@ if ($confirmation -ieq "yes") {
 }
 else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
-  Restart-Computer
+  Restart-Computer -Force
 }
 
 #Change Display Resolution for Virtual Machine
