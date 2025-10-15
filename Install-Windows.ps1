@@ -1,7 +1,7 @@
 #Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
 Start-Sleep -Seconds 1
 cls
-$Host.UI.RawUI.BackgroundColor = 'Red'
+[console]::backgroundcolor = "darkmagenta"
 Write-Host ""
 Write-Host ""
 Write-Host "               ======================"
@@ -11,7 +11,7 @@ Write-Host ""
 $confirmation = Read-Host "   This action will wipe your computer, type 'yes' to confirm and proceed"
 if ($confirmation -ieq "yes") {
   Write-Host "Proceeding with action..." -ForegroundColor Green
-  $Host.UI.RawUI.BackgroundColor = 'DarkBlue'
+  [console]::backgroundcolor = 'DarkBlue'
 }
 else {
   Write-Host "Action cancelled. Restarting Computer" -ForegroundColor Yellow
