@@ -57,6 +57,7 @@ Start-Sleep -Seconds 5
 
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7342fa97-e584-4465-9b3d-71e771c9db5b/public/windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu" #Sept 2025
 
+<#COMMENT OUT FOR FAST TESTING
 $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu" #Oct 2025  25H2
 
 $OutputPath = "C:\OSDCloud\Updates\latestKB.msu"
@@ -87,5 +88,5 @@ dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUP
 Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
 Start-Sleep -Seconds 30
 #endregion INSTALL LATEST CUMULATIVE UPDATE
-
+#>
 Restart-Computer
