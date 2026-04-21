@@ -1,4 +1,4 @@
-#Write-Host -ForegroundColor Cyan "Starting Rob's OSDCloud ..."
+#Write-Host -ForegroundColor Cyan "Starting OSDCloud ..."
 Start-Sleep -Seconds 1
 cls
 
@@ -49,8 +49,8 @@ Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterp
 #Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
-Write-Host -ForegroundColor Green "We could do something here? Maybe we check for patches..."
-Start-Sleep -Seconds 5
+Write-Host -ForegroundColor Green "Let's check for patches..."
+Start-Sleep -Seconds 1
 
 
 #region INSTALL LATEST CUMULATIVE UPDATE
@@ -94,7 +94,7 @@ New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
 $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
-Start-Sleep -Seconds 30
+Start-Sleep -Seconds 15
 #endregion INSTALL LATEST CUMULATIVE UPDATE
 
 Restart-Computer
