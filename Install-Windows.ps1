@@ -87,6 +87,11 @@ $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
 
+#endregion INSTALL LATEST CUMULATIVE UPDATE
+Start-Sleep -Seconds 5
+
+<#
+#region WinRE 
 $SafeOSURL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9e3d3c09-fbf6-4dd2-8cc9-a07d4dcd5879/public/windows11.0-kb5089593-x64_2ec8272439ac21bbba6df2f4befdda6f63c22858.cab"
 $SafeOSPath = "C:\OSDCloud\Updates\SafeOS.cab"
 $WinREWim = "C:\Windows\System32\Recovery\winre.wim"
@@ -98,8 +103,7 @@ DISM /Mount-Image /ImageFile:$WinREWim /Index:1 /MountDir:$MountDir
 DISM /Image:$MountDir /Add-Package /PackagePath:$SafeOSPath
 DISM /Unmount-Image /MountDir:$MountDir /Commit
 Write-Host -ForegroundColor Cyan "WinRE patched with Safe OS update"
-
+#endregion WinRE
+#>
 Start-Sleep -Seconds 15
-#endregion INSTALL LATEST CUMULATIVE UPDATE
-
 Restart-Computer
