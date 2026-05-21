@@ -55,13 +55,6 @@ Start-Sleep -Seconds 1
 
 #region INSTALL LATEST CUMULATIVE UPDATE
 
-#$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6d57381b-2334-4031-acd9-549c3611e767/public/windows11.0-kb5063878-x64_c2d51482402fd8fc112d2c022210dd7c3266896d.msu" #August 2025
-
-# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7342fa97-e584-4465-9b3d-71e771c9db5b/public/windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu" #Sept 2025
-
-#COMMENT OUT FOR FAST TESTING
-
-#$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu" #Oct 2025  25H2
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9d6e2b81-b755-4e68-af73-9f4ee41cd758/public/windows11.0-kb5072033-x64_a62291f0bad9123842bf15dcdd75d807d2a2c76a.msu"  #Dec 2025  25H2
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/df3e807e-9c9c-448e-93ce-63477b39d7f9/public/windows11.0-kb5078127-x64_2669c24d8d8227e7992853d32fb4e95873bbe6bf.msu"  #Jan 2026  25H2  w/ Out of Band
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/80d1ded6-1dbd-41de-84ff-790373be83c8/public/windows11.0-kb5085516-x64_52aef89bc1afc5e67eec927556ec6926122936ad.msu" #March 2026
@@ -85,8 +78,6 @@ catch {
   Write-Error "Download failed: $($_.Exception.Message)"
 }
 
-
-
 $WindowsPath = "C:\"
 #$MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
 #$MSUPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
@@ -95,6 +86,19 @@ New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory
 $scratchDir = "C:\OSDCLoud\scratch"
 dism /Image:$WindowsPath /scratchdir:$scratchDir /Add-Package /PackagePath:$MSUPath
 Write-Host -ForegroundColor Cyan "Latest Windows cumulative patch installed"
+
+$SafeOSURL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9e3d3c09-fbf6-4dd2-8cc9-a07d4dcd5879/public/windows11.0-kb5089593-x64_2ec8272439ac21bbba6df2f4befdda6f63c22858.cab"
+$SafeOSPath = "C:\OSDCloud\Updates\SafeOS.cab"
+$WinREWim = "C:\Windows\System32\Recovery\winre.wim"
+$MountDir = "C:\OSDCloud\WinRE_Mount"
+Save-WebFile -SourceURL $SafeOSURL -DestinationDirectory "C:\OSDCloud\Updates" -DestinationName "SafeOS.cab"
+
+New-Item -Path $MountDir -ItemType Directory -Force | Out-Null
+DISM /Mount-Image /ImageFile:$WinREWim /Index:1 /MountDir:$MountDir
+DISM /Image:$MountDir /Add-Package /PackagePath:$SafeOSPath
+DISM /Unmount-Image /MountDir:$MountDir /Commit
+Write-Host -ForegroundColor Cyan "WinRE patched with Safe OS update"
+
 Start-Sleep -Seconds 15
 #endregion INSTALL LATEST CUMULATIVE UPDATE
 
