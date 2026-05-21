@@ -65,8 +65,9 @@ Start-Sleep -Seconds 1
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9d6e2b81-b755-4e68-af73-9f4ee41cd758/public/windows11.0-kb5072033-x64_a62291f0bad9123842bf15dcdd75d807d2a2c76a.msu"  #Dec 2025  25H2
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/df3e807e-9c9c-448e-93ce-63477b39d7f9/public/windows11.0-kb5078127-x64_2669c24d8d8227e7992853d32fb4e95873bbe6bf.msu"  #Jan 2026  25H2  w/ Out of Band
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/80d1ded6-1dbd-41de-84ff-790373be83c8/public/windows11.0-kb5085516-x64_52aef89bc1afc5e67eec927556ec6926122936ad.msu" #March 2026
+# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ca944ac5-63da-42b4-9d1f-58b0c3259132/public/windows11.0-kb5083769-x64_57f4bd47d73842dd239f2c18b8ce48c8bf1c1d5d.msu"  #April 2026
 
-$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ca944ac5-63da-42b4-9d1f-58b0c3259132/public/windows11.0-kb5083769-x64_57f4bd47d73842dd239f2c18b8ce48c8bf1c1d5d.msu"  #April 2026
+$URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu" #May 2026
 
 $OutputPath = "C:\OSDCloud\Updates\latestKB.msu"
 # Create directory
