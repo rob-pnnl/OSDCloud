@@ -60,17 +60,13 @@ Write-Host -ForegroundColor Cyan "Ejecting ISO"
 #Write-Warning "That didn't work because I haven't coded it yet!"
 #Start-Sleep -Seconds 5
 
-#Start OSDCloud ZTI the RIGHT way
-Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
-#Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 24H2 -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
-
 # Bypass disk verification and rely on earlier Confirmation
-#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot
+#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot     # This wipes disk without verifying
 
-Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
+# Start OSDCloud ZTI the RIGHT way
+Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
+Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot  # Innate Prompt to verify wiping disk
 
-# Innate Prompt to verify wiping disk
-#Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
 Write-Host -ForegroundColor Green "Let's check for patches..."
@@ -79,9 +75,6 @@ Start-Sleep -Seconds 1
 
 #region INSTALL LATEST CUMULATIVE UPDATE
 
-# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9d6e2b81-b755-4e68-af73-9f4ee41cd758/public/windows11.0-kb5072033-x64_a62291f0bad9123842bf15dcdd75d807d2a2c76a.msu"  #Dec 2025  25H2
-# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/df3e807e-9c9c-448e-93ce-63477b39d7f9/public/windows11.0-kb5078127-x64_2669c24d8d8227e7992853d32fb4e95873bbe6bf.msu"  #Jan 2026  25H2  w/ Out of Band
-# $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/80d1ded6-1dbd-41de-84ff-790373be83c8/public/windows11.0-kb5085516-x64_52aef89bc1afc5e67eec927556ec6926122936ad.msu" #March 2026
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ca944ac5-63da-42b4-9d1f-58b0c3259132/public/windows11.0-kb5083769-x64_57f4bd47d73842dd239f2c18b8ce48c8bf1c1d5d.msu"  #April 2026
 
 # Active CU URL is sourced from $KBConfig at top of script (was previously hard-coded here)
@@ -94,8 +87,6 @@ New-Item -Path "C:\OSDCloud\Updates" -ItemType Directory -Force | Out-Null
 # Download
 Write-Host "Downloading Windows Update..." -ForegroundColor Yellow
 try {
-  #Invoke-WebRequest -Uri $URL -OutFile $OutputPath -UseBasicParsing
-  #Save-WebFile -SourceURL $URL -DestinationDirectory "C:\OSDCloud\Updates" -DestinationName "windows11.0-kb5064489-x64.msu"
   Save-WebFile -SourceURL $URL -DestinationDirectory "C:\OSDCloud\Updates" -DestinationName "latestKB.msu"
   Write-Host "Download completed: $OutputPath" -ForegroundColor Green
 }
@@ -104,8 +95,6 @@ catch {
 }
 
 $WindowsPath = "C:\"
-#$MSUPath = "D:\OSDCloud\Automate\kb5064489.msu"
-#$MSUPath = "C:\OSDCloud\Updates\windows11.0-kb5064489-x64.msu"
 $MSUPath = "C:\OSDCloud\Updates\latestKB.msu"
 New-Item -Path "C:\OSDCloud\" -Name "scratch" -ItemType Directory -Force | Out-Null
 $scratchDir = "C:\OSDCLoud\scratch"
