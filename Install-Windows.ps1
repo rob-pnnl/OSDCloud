@@ -112,7 +112,7 @@ try {
 #endregion INSTALL LATEST CUMULATIVE UPDATE
 Start-Sleep -Seconds 5
 
-<#
+
 #region WinRE 
 # Active SafeOS URL is sourced from $KBConfig at top of script
 $SafeOSURL = $KBConfig.SafeOSURL
@@ -142,7 +142,7 @@ try {
   DISM /Unmount-Image /MountDir:$MountDir /Discard 2>&1 | Out-Null
 }
 #endregion WinRE
-#>
+
 
 #region PERSIST TRANSCRIPT TO C: BEFORE REBOOT
 try {
