@@ -9,8 +9,8 @@ $KBConfig = [ordered]@{
     LastUpdated   = '2026-05-XX'   # tracking only, not used by script
     CumulativeKB  = 'KB5089549'    # May 2026
     CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu'
-    SafeOSKB      = 'KB5089593'
-    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9e3d3c09-fbf6-4dd2-8cc9-a07d4dcd5879/public/windows11.0-kb5089593-x64_2ec8272439ac21bbba6df2f4befdda6f63c22858.cab'
+    SafeOSKB      = 'KB5096038'
+    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e8733203-37f9-4cc4-9a4f-d98e3fdd53d2/public/windows11.0-kb5096038-x64_75a302a7026a3992622807243f13fcbc161340ae.cab'
 }
 #endregion
 
