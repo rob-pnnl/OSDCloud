@@ -6,11 +6,16 @@ cls
 # History: previous URLs are kept commented in the INSTALL LATEST CUMULATIVE UPDATE region below.
 $KBConfig = [ordered]@{
     OSBuild       = '25H2'
-    LastUpdated   = '2026-05-XX'   # tracking only, not used by script
-    CumulativeKB  = 'KB5089549'    # May 2026
-    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu'
-    SafeOSKB      = 'KB5096038'
-    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e8733203-37f9-4cc4-9a4f-d98e3fdd53d2/public/windows11.0-kb5096038-x64_75a302a7026a3992622807243f13fcbc161340ae.cab'
+    LastUpdated   = '2026-06-XX'   # tracking only, not used by script
+   # CumulativeKB  = 'KB5089549'    # May 2026
+    CumulativeKB  = 'KB5094126'    # June 2026
+   # CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu'
+    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8ab7b9b4-fb40-4820-afb3-cbaf4cc0a701/public/windows11.0-kb5094126-x64_1b7fae967f9781d27e8ee3f848fba51b7cd62e88.msu'
+   # SafeOSKB      = 'KB5096038'
+    SafeOSKB      = 'KB5094149'
+   # SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e8733203-37f9-4cc4-9a4f-d98e3fdd53d2/public/windows11.0-kb5096038-x64_75a302a7026a3992622807243f13fcbc161340ae.cab'
+    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/20e1cd90-63da-43de-9c0d-b0a439882a0f/public/windows11.0-kb5094149-x64_1bd08a8e369f32bb5c28e41f4699675a88ae5499.cab'
+
 }
 #endregion
 
