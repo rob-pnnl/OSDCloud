@@ -80,7 +80,7 @@ Write-Host -ForegroundColor Green "Let's check for patches..."
 Start-Sleep -Seconds 1
 
 
-#region INSTALL LATEST CUMULATIVE UPDATE
+<#region INSTALL LATEST CUMULATIVE UPDATE
 
 # $URL = "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ca944ac5-63da-42b4-9d1f-58b0c3259132/public/windows11.0-kb5083769-x64_57f4bd47d73842dd239f2c18b8ce48c8bf1c1d5d.msu"  #April 2026
 
@@ -149,7 +149,7 @@ try {
   DISM /Unmount-Image /MountDir:$MountDir /Discard 2>&1 | Out-Null
 }
 #endregion WinRE
-
+#>
 
 #region PERSIST TRANSCRIPT TO C: BEFORE REBOOT
 try {
