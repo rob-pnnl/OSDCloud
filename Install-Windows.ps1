@@ -7,8 +7,8 @@ cls
 $KBConfig = [ordered]@{
     OSBuild       = '25H2'
     LastUpdated   = '2026-07-XX'   # tracking only, not used by script
-    CumulativeKB  = 'KB5121767'    # July 2026
-    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/09279629-f3ef-445e-bfbd-d7936e176164/public/windows11.0-kb5121767-x64_588e6404d4e909f2609486fd91a7b28f02d4be0a.msu'
+    CumulativeKB  = 'KB5121003'    # August 2026
+    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dbc14d78-9837-4fb2-afbc-75d6663bf1e5/public/windows11.0-kb5121003-x64_dc58f03fef04b4c611e0db0ab3fadfb301194113.msu'
     SafeOSKB      = 'KB5101719'
     SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ad4e64c2-0468-4d0b-aa0d-879e834bcdae/public/windows11.0-kb5101719-x64_dc46866adf74a60b631b4a2f44a2a597335f7142.cab'
 }
@@ -120,7 +120,7 @@ try {
 Start-Sleep -Seconds 5
 
 
-#region WinRE 
+<#region WinRE 
 # Active SafeOS URL is sourced from $KBConfig at top of script
 $SafeOSURL = $KBConfig.SafeOSURL
 $SafeOSPath = "C:\OSDCloud\Updates\SafeOS.cab"
@@ -149,6 +149,7 @@ try {
   DISM /Unmount-Image /MountDir:$MountDir /Discard 2>&1 | Out-Null
 }
 #endregion WinRE
+#>
 
 
 #region PERSIST TRANSCRIPT TO C: BEFORE REBOOT
