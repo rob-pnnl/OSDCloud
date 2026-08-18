@@ -6,11 +6,12 @@ cls
 # History: previous URLs are kept commented in the INSTALL LATEST CUMULATIVE UPDATE region below.
 $KBConfig = [ordered]@{
     OSBuild       = '25H2'
-    LastUpdated   = '2026-07-XX'   # tracking only, not used by script
+    LastUpdated   = '2026-08-18'   # Tracking only
     CumulativeKB  = 'KB5121003'    # August 2026
+    DateStamp     = 'August 2026'
     CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dbc14d78-9837-4fb2-afbc-75d6663bf1e5/public/windows11.0-kb5121003-x64_dc58f03fef04b4c611e0db0ab3fadfb301194113.msu'
-    SafeOSKB      = 'KB5101719'
-    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ad4e64c2-0468-4d0b-aa0d-879e834bcdae/public/windows11.0-kb5101719-x64_dc46866adf74a60b631b4a2f44a2a597335f7142.cab'
+    SafeOSKB      = 'KB5121002'
+    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dfcf88fc-d0a1-4bfc-b71f-92a13093f4cb/public/windows11.0-kb5121002-x64_dc3ee80e601b05d4b88b17e5af99e9833cdc7b7a.cab'
 }
 #endregion
 
@@ -19,7 +20,9 @@ $KBConfig = [ordered]@{
 # CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu'
 # SafeOSKB      = 'KB5096038'
 # SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e8733203-37f9-4cc4-9a4f-d98e3fdd53d2/public/windows11.0-kb5096038-x64_75a302a7026a3992622807243f13fcbc161340ae.cab'
-  
+
+# SafeOSKB      = 'KB5101719'
+# SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ad4e64c2-0468-4d0b-aa0d-879e834bcdae/public/windows11.0-kb5101719-x64_dc46866adf74a60b631b4a2f44a2a597335f7142.cab'  
    
 #region TRANSCRIPT LOGGING (writes to WinPE ramdisk; copied to C:\OSDCloud\Logs before reboot)
 $transcriptPath = 'X:\OSDCloud\Logs\Install-Windows.log'
@@ -27,7 +30,7 @@ try {
     New-Item -Path (Split-Path $transcriptPath -Parent) -ItemType Directory -Force | Out-Null
     Start-Transcript -Path $transcriptPath -Append -ErrorAction SilentlyContinue | Out-Null
     Write-Host "Transcript started: $transcriptPath" -ForegroundColor DarkGray
-    Write-Host "KB Config: CU=$($KBConfig.CumulativeKB)  SafeOS=$($KBConfig.SafeOSKB)  Build=$($KBConfig.OSBuild)" -ForegroundColor DarkGray
+    Write-Host "Build=$($KBConfig.OSBuild)   KB Config: CU=$($KBConfig.CumulativeKB)  $($KBConfig.DateStamp)" -ForegroundColor Green
 } catch {
     Write-Warning "Could not start transcript: $($_.Exception.Message)"
 }
@@ -120,7 +123,7 @@ try {
 Start-Sleep -Seconds 5
 
 
-<#region WinRE 
+#region WinRE 
 # Active SafeOS URL is sourced from $KBConfig at top of script
 $SafeOSURL = $KBConfig.SafeOSURL
 $SafeOSPath = "C:\OSDCloud\Updates\SafeOS.cab"
@@ -149,7 +152,7 @@ try {
   DISM /Unmount-Image /MountDir:$MountDir /Discard 2>&1 | Out-Null
 }
 #endregion WinRE
-#>
+#
 
 
 #region PERSIST TRANSCRIPT TO C: BEFORE REBOOT
