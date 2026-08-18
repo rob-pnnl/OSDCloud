@@ -30,7 +30,9 @@ try {
     New-Item -Path (Split-Path $transcriptPath -Parent) -ItemType Directory -Force | Out-Null
     Start-Transcript -Path $transcriptPath -Append -ErrorAction SilentlyContinue | Out-Null
     Write-Host "Transcript started: $transcriptPath" -ForegroundColor DarkGray
-    Write-Host "Build=$($KBConfig.OSBuild)   KB Config: CU=$($KBConfig.CumulativeKB)  $($KBConfig.DateStamp)" -ForegroundColor Green
+    Write-Host ""
+    Write-Host ""
+    Write-Host "    Build=$($KBConfig.OSBuild)   KB Config: CU=$($KBConfig.CumulativeKB)  $($KBConfig.DateStamp)" -ForegroundColor Green
 } catch {
     Write-Warning "Could not start transcript: $($_.Exception.Message)"
 }
