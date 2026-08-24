@@ -77,7 +77,7 @@ Write-Host -ForegroundColor Cyan "Ejecting ISO"
 
 # Start OSDCloud ZTI the RIGHT way
 Write-Host -ForegroundColor Cyan "Start OSDCloud with new Parameters"
-Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -ZTI -SkipAutopilot  # Innate Prompt to verify wiping disk
+Start-OSDCloud -OSName 'Windows 11 25H2 x64' -OSLanguage en-us -OSEdition Enterprise -OSActivation Volume -SkipAutopilot  # Innate Prompt to verify wiping disk
 
 
 Write-Host -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
