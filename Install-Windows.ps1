@@ -6,12 +6,12 @@ cls
 # History: previous URLs are kept commented in the INSTALL LATEST CUMULATIVE UPDATE region below.
 $KBConfig = [ordered]@{
     OSBuild       = '25H2'
-    LastUpdated   = '2026-08-18'   # Tracking only
-    CumulativeKB  = 'KB5121003'    # August 2026
+    LastUpdated   = '2026-09-15'   # Tracking only
+    CumulativeKB  = 'KB5124008'    # August 2026
     DateStamp     = 'August 2026'
-    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dbc14d78-9837-4fb2-afbc-75d6663bf1e5/public/windows11.0-kb5121003-x64_dc58f03fef04b4c611e0db0ab3fadfb301194113.msu'
-    SafeOSKB      = 'KB5121002'
-    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dfcf88fc-d0a1-4bfc-b71f-92a13093f4cb/public/windows11.0-kb5121002-x64_dc3ee80e601b05d4b88b17e5af99e9833cdc7b7a.cab'
+    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ed315343-4767-4a66-9be5-2a23bef1546e/public/windows11.0-kb5124008-x64_81e42f50fdb7af8d15eefc23aa51cf3e23215bdc.msu'
+    SafeOSKB      = 'KB5124015'
+    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/0832cdac-2b64-4fff-9628-e934f9cef112/public/windows11.0-kb5124015-x64_8d6045779da371cd3ffd1bf768a4d053ba9110c7.cab'
 }
 #endregion
 
