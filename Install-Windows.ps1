@@ -6,6 +6,18 @@ cls
 # History: previous URLs are kept commented in the INSTALL LATEST CUMULATIVE UPDATE region below.
 $KBConfig = [ordered]@{
     OSBuild       = '25H2'
+    LastUpdated   = '2026-10-22'   # Tracking only
+    CumulativeKB  = 'KB5127648'    # August 2026
+    DateStamp     = 'October 2026'
+    CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/4225b261-8248-43e5-a808-34f3faafe3f6/public/windows11.0-kb5127648-x64_2b88d2d308adc938fcd4d2876a68ee0b2a3c4c09.msu'
+    SafeOSKB      = 'KB5127654'
+    SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f8397943-4d37-43cb-a167-74b567556f37/public/windows11.0-kb5127654-x64_87d6bc65b7b39cdd33e9570c7aff97e28ba31c2b.cab'
+}
+#endregion
+
+<#old data
+$KBConfig = [ordered]@{
+    OSBuild       = '25H2'
     LastUpdated   = '2026-09-15'   # Tracking only
     CumulativeKB  = 'KB5124008'    # August 2026
     DateStamp     = 'September 2026'
@@ -13,17 +25,8 @@ $KBConfig = [ordered]@{
     SafeOSKB      = 'KB5124015'
     SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/0832cdac-2b64-4fff-9628-e934f9cef112/public/windows11.0-kb5124015-x64_8d6045779da371cd3ffd1bf768a4d053ba9110c7.cab'
 }
-#endregion
+#>
 
-#old data
-# CumulativeKB  = 'KB5089549'    # May 2026
-# CumulativeURL = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/53914338-2058-4b75-95a6-6d674648107c/public/windows11.0-kb5089549-x64_9a542b5813b003374532dceeba49b7e07c3fc2fb.msu'
-# SafeOSKB      = 'KB5096038'
-# SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e8733203-37f9-4cc4-9a4f-d98e3fdd53d2/public/windows11.0-kb5096038-x64_75a302a7026a3992622807243f13fcbc161340ae.cab'
-
-# SafeOSKB      = 'KB5101719'
-# SafeOSURL     = 'https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ad4e64c2-0468-4d0b-aa0d-879e834bcdae/public/windows11.0-kb5101719-x64_dc46866adf74a60b631b4a2f44a2a597335f7142.cab'  
-   
 #region TRANSCRIPT LOGGING (writes to WinPE ramdisk; copied to C:\OSDCloud\Logs before reboot)
 $transcriptPath = 'X:\OSDCloud\Logs\Install-Windows.log'
 try {
