@@ -46,8 +46,8 @@ try {
 }
 #endregion TRANSCRIPT LOGGING
 
-#region HELPER FUNCTIONS
-function global:Write-TextUtf8NoBom {
+#region HELPER SCRIPTBLOCKS (stored in variables so Invoke-WebPSScript / Import-Module scope reloads cannot drop them)
+$WriteTextUtf8NoBom = {
     param(
         [Parameter(Mandatory = $true)][string]$LiteralPath,
         [Parameter(Mandatory = $true)][string]$Content
@@ -56,7 +56,7 @@ function global:Write-TextUtf8NoBom {
     [System.IO.File]::WriteAllText($LiteralPath, $Content, $utf8NoBom)
 }
 
-function global:Repair-OSDMsUpCatClass {
+$RepairOSDMsUpCatClass = {
     param([Parameter(Mandatory = $true)][string]$ModuleRoot)
     $classFiles = Get-ChildItem -Path $ModuleRoot -Recurse -Filter 'MsUpCat.Class.ps1' -ErrorAction SilentlyContinue
     foreach ($cf in $classFiles) {
@@ -67,7 +67,7 @@ function global:Repair-OSDMsUpCatClass {
                 $new = '$__mucDate = $Cells[4].innerText.Trim().Split("/"); $this.LastUpdated = (Get-Date -Year $__mucDate[2] -Month $__mucDate[0] -Day $__mucDate[1])'
                 if ($raw.Contains($old)) {
                     $raw = $raw.Replace($old, $new)
-                    Write-TextUtf8NoBom -LiteralPath $cf.FullName -Content $raw
+                    & $WriteTextUtf8NoBom -LiteralPath $cf.FullName -Content $raw
                     Write-Host ("Patched MsUpCat.Class.ps1 in {0}" -f $cf.FullName) -ForegroundColor DarkGray
                 }
             }
@@ -77,7 +77,7 @@ function global:Repair-OSDMsUpCatClass {
     }
 }
 
-function global:Sync-LatestMicrosoftOSCatalog {
+$SyncLatestMicrosoftOSCatalog = {
     <#
     .SYNOPSIS
         Queries Microsoft's live UpdateMetadataService for the latest Windows 11 products.cab,
@@ -202,7 +202,7 @@ function global:Sync-LatestMicrosoftOSCatalog {
     }
 }
 
-function global:Stage-M365PreInstall {
+$StageM365PreInstall = {
     <#
     .SYNOPSIS
         Stages the Office Deployment Tool (setup.exe + configuration.xml) to C:\OSDCloud\ODT
@@ -460,7 +460,7 @@ Write-Output ("==== Install-M365Apps (SetupComplete) finished {0} ====" -f (Get-
 Stop-Transcript -ErrorAction SilentlyContinue | Out-Null
 exit 0
 '@
-    Write-TextUtf8NoBom -LiteralPath $installM365ScriptPath -Content $installM365Script
+    & $WriteTextUtf8NoBom -LiteralPath $installM365ScriptPath -Content $installM365Script
     Write-Host ("Staged pre-OOBE installer script -> {0}" -f $installM365ScriptPath) -ForegroundColor Green
 
     # 6. Ensure C:\OSDCloud\Scripts\SetupComplete\SetupComplete.cmd calls both Collect-AutopilotHash.ps1 and Install-M365Apps.ps1
@@ -485,7 +485,7 @@ if exist "C:\OSDCloud\Scripts\SetupComplete\Install-M365Apps.ps1" (
 )
 exit /b 0
 "@
-    Write-TextUtf8NoBom -LiteralPath $customSetupCompleteCmd -Content $cmdContent
+    & $WriteTextUtf8NoBom -LiteralPath $customSetupCompleteCmd -Content $cmdContent
     Write-Host ("Updated custom SetupComplete.cmd -> {0}" -f $customSetupCompleteCmd) -ForegroundColor Green
 
     # 7. Verify C:\Windows\Setup\scripts\SetupComplete.ps1 invokes C:\OSDCloud\Scripts\SetupComplete\SetupComplete.cmd
@@ -539,7 +539,7 @@ if ($null -eq $availableOSD -or $availableOSD.Version -lt $DeployConfig.MinimumO
         Install-Module -Name OSD -Force -Scope AllUsers -SkipPublisherCheck -ErrorAction Stop
         $newOSD = Get-Module -ListAvailable -Name OSD | Sort-Object Version -Descending | Select-Object -First 1
         if ($null -ne $newOSD) {
-            Repair-OSDMsUpCatClass -ModuleRoot $newOSD.ModuleBase
+            & $RepairOSDMsUpCatClass -ModuleRoot $newOSD.ModuleBase
         }
     } catch {
         Write-Warning (("Failed to update OSD module online: {0}" -f $_.Exception.Message))
@@ -552,7 +552,7 @@ if ($null -eq (Get-Module -Name OSD)) {
 }
 
 if ($DeployConfig.SyncLiveMicrosoftESD) {
-    $liveCatalogId = Sync-LatestMicrosoftOSCatalog
+    $liveCatalogId = & $SyncLatestMicrosoftOSCatalog
     if ($liveCatalogId) {
         Write-Host -ForegroundColor Green ("Live Microsoft ESD catalog active: {0}" -f $liveCatalogId)
     }
@@ -623,7 +623,7 @@ if ($ManualKBOverride.Enabled -and -not [string]::IsNullOrWhiteSpace($ManualKBOv
 #region STAGE M365 APPS FOR SETUPCOMPLETE
 if ($DeployConfig.StageM365Apps) {
     try {
-        Stage-M365PreInstall `
+        & $StageM365PreInstall `
             -ConfigXmlUrl $DeployConfig.ConfigXmlUrl `
             -OdtDownloadPageUrl $DeployConfig.OdtDownloadPageUrl `
             -OdtFallbackDirectUrl $DeployConfig.OdtFallbackDirectUrl
