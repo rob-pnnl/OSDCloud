@@ -47,7 +47,7 @@ try {
 #endregion TRANSCRIPT LOGGING
 
 #region HELPER FUNCTIONS
-function Write-TextUtf8NoBom {
+function global:Write-TextUtf8NoBom {
     param(
         [Parameter(Mandatory = $true)][string]$LiteralPath,
         [Parameter(Mandatory = $true)][string]$Content
@@ -56,7 +56,7 @@ function Write-TextUtf8NoBom {
     [System.IO.File]::WriteAllText($LiteralPath, $Content, $utf8NoBom)
 }
 
-function Repair-OSDMsUpCatClass {
+function global:Repair-OSDMsUpCatClass {
     param([Parameter(Mandatory = $true)][string]$ModuleRoot)
     $classFiles = Get-ChildItem -Path $ModuleRoot -Recurse -Filter 'MsUpCat.Class.ps1' -ErrorAction SilentlyContinue
     foreach ($cf in $classFiles) {
@@ -77,7 +77,7 @@ function Repair-OSDMsUpCatClass {
     }
 }
 
-function Sync-LatestMicrosoftOSCatalog {
+function global:Sync-LatestMicrosoftOSCatalog {
     <#
     .SYNOPSIS
         Queries Microsoft's live UpdateMetadataService for the latest Windows 11 products.cab,
@@ -202,7 +202,7 @@ function Sync-LatestMicrosoftOSCatalog {
     }
 }
 
-function Stage-M365PreInstall {
+function global:Stage-M365PreInstall {
     <#
     .SYNOPSIS
         Stages the Office Deployment Tool (setup.exe + configuration.xml) to C:\OSDCloud\ODT
@@ -391,12 +391,8 @@ function Sync-SystemClock {
 }
 
 try {
-    if (-not (Test-Path -LiteralPath $SetupExe)) {
-        throw ("ODT setup.exe not found at {0}" -f $SetupExe)
-    }
-    if (-not (Test-Path -LiteralPath $ConfigXml)) {
-        throw ("ODT configuration.xml not found at {0}" -f $ConfigXml)
-    }
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    [void][System.IO.Directory]::CreateDirectory($OdtDir)
 
     $hasLocalCache = Test-Path -LiteralPath (Join-Path (Join-Path $OdtDir 'Office') 'Data')
     if ($hasLocalCache) {
@@ -407,6 +403,33 @@ try {
             throw "No network connectivity available to download M365 Apps from CDN."
         }
         Sync-SystemClock
+    }
+
+    if (-not (Test-Path -LiteralPath $SetupExe)) {
+        Write-Output "ODT setup.exe not pre-staged at C:\OSDCloud\ODT\setup.exe; downloading from Microsoft..."
+        $odtUrl = 'https://download.microsoft.com/download/6c1eeb25-cf8b-41d9-8d0d-cc1dbc032140/officedeploymenttool_20527-20150.exe'
+        try {
+            $pg = Invoke-WebRequest -Uri 'https://www.microsoft.com/en-us/download/details.aspx?id=49117' -UseBasicParsing -TimeoutSec 20
+            $m = [regex]::Match($pg.Content, 'https://download\.microsoft\.com/download/[^"''\s]+officedeploymenttool[^"''\s]+\.exe', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+            if ($m.Success) { $odtUrl = $m.Value }
+        } catch {}
+        $pkg = Join-Path $OdtDir 'officedeploymenttool.exe'
+        Invoke-WebRequest -Uri $odtUrl -OutFile $pkg -UseBasicParsing -TimeoutSec 60
+        Start-Process -FilePath $pkg -ArgumentList ("/quiet /extract:`"{0}`"" -f $OdtDir) -Wait -NoNewWindow
+        Remove-Item -LiteralPath $pkg -Force -ErrorAction SilentlyContinue
+        Get-ChildItem -Path $OdtDir -Filter 'configuration-*.xml' -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+    }
+
+    if (-not (Test-Path -LiteralPath $ConfigXml)) {
+        Write-Output "configuration.xml not pre-staged; downloading from GitHub..."
+        Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rob-pnnl/OSDCloud/refs/heads/main/configuration.xml' -OutFile $ConfigXml -UseBasicParsing -TimeoutSec 20
+    }
+
+    if (-not (Test-Path -LiteralPath $SetupExe)) {
+        throw ("ODT setup.exe not found at {0}" -f $SetupExe)
+    }
+    if (-not (Test-Path -LiteralPath $ConfigXml)) {
+        throw ("ODT configuration.xml not found at {0}" -f $ConfigXml)
     }
 
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
@@ -523,8 +546,10 @@ if ($null -eq $availableOSD -or $availableOSD.Version -lt $DeployConfig.MinimumO
     }
 }
 
-Write-Host -ForegroundColor Cyan "Importing OSD PowerShell Module..."
-Import-Module OSD -Force
+if ($null -eq (Get-Module -Name OSD)) {
+    Write-Host -ForegroundColor Cyan "Importing OSD PowerShell Module..."
+    Import-Module OSD -Force
+}
 
 if ($DeployConfig.SyncLiveMicrosoftESD) {
     $liveCatalogId = Sync-LatestMicrosoftOSCatalog
