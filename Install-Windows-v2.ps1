@@ -551,6 +551,53 @@ if ($null -eq (Get-Module -Name OSD)) {
     Import-Module OSD -Force
 }
 
+# Patch OSD in-memory to handle USB boot drives with unmounted/hidden partitions (e.g. Rufus UEFI_NTFS, Ventoy)
+# where DriveLetter is null/[char]0 and Remove-PartitionAccessPath -AccessPath ":" -ErrorAction Stop would fail.
+$osdModInstance = Get-Module -Name OSD | Select-Object -First 1
+if ($null -ne $osdModInstance) {
+    try {
+        & $osdModInstance {
+            if (Test-Path -Path 'function:Get-USBPartition') {
+                $origGetUsbSb = (Get-Item -Path 'function:Get-USBPartition').ScriptBlock
+                Set-Item -Path 'function:script:Get-USBPartition' -Value ({
+                    & $origGetUsbSb | Where-Object {
+                        $null -ne $_.DriveLetter -and
+                        ([string]$_.DriveLetter).Trim([char]0).Trim() -match '^[A-Za-z]$'
+                    }
+                }.GetNewClosure())
+            }
+            function script:Remove-PartitionAccessPath {
+                [CmdletBinding()]
+                param(
+                    [Parameter(ValueFromPipeline = $true)]$InputObject,
+                    [string]$AccessPath,
+                    [uint32]$DiskNumber,
+                    [uint32]$PartitionNumber
+                )
+                process {
+                    $cleanPath = if ($null -ne $AccessPath) { $AccessPath.Trim([char]0).Trim() } else { '' }
+                    if ([string]::IsNullOrWhiteSpace($cleanPath) -or $cleanPath -notmatch '^[A-Za-z]:\\?$') {
+                        Write-Host ("  [USB Fix] Skipping USB partition without drive letter (Disk {0} Partition {1})" -f $DiskNumber, $PartitionNumber) -ForegroundColor DarkGray
+                        return
+                    }
+                    try {
+                        if ($null -ne $InputObject) {
+                            $InputObject | Storage\Remove-PartitionAccessPath -AccessPath $cleanPath -ErrorAction Stop
+                        } else {
+                            Storage\Remove-PartitionAccessPath -DiskNumber $DiskNumber -PartitionNumber $PartitionNumber -AccessPath $cleanPath -ErrorAction Stop
+                        }
+                    } catch {
+                        Write-Warning (("  [USB Fix] Ignoring non-fatal Remove-PartitionAccessPath error on {0} (Disk {1} Partition {2}): {3}" -f $cleanPath, $DiskNumber, $PartitionNumber, $_.Exception.Message))
+                    }
+                }
+            }
+        }
+        Write-Host -ForegroundColor DarkGray "Applied USB partition drive-letter safeguard to OSD module."
+    } catch {
+        Write-Warning (("Could not apply USB partition safeguard: {0}" -f $_.Exception.Message))
+    }
+}
+
 if ($DeployConfig.SyncLiveMicrosoftESD) {
     $liveCatalogId = & $SyncLatestMicrosoftOSCatalog
     if ($liveCatalogId) {
