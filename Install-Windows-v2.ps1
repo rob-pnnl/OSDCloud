@@ -587,8 +587,35 @@ if ($null -ne $osdModInstance) {
                             Storage\Remove-PartitionAccessPath -DiskNumber $DiskNumber -PartitionNumber $PartitionNumber -AccessPath $cleanPath -ErrorAction Stop
                         }
                     } catch {
-                        Write-Warning (("  [USB Fix] Ignoring non-fatal Remove-PartitionAccessPath error on {0} (Disk {1} Partition {2}): {3}" -f $cleanPath, $DiskNumber, $PartitionNumber, $_.Exception.Message))
+                        $altPath = ("{0}\" -f $cleanPath.TrimEnd('\'))
+                        try {
+                            if ($null -ne $InputObject) {
+                                $InputObject | Storage\Remove-PartitionAccessPath -AccessPath $altPath -ErrorAction Stop
+                            } else {
+                                Storage\Remove-PartitionAccessPath -DiskNumber $DiskNumber -PartitionNumber $PartitionNumber -AccessPath $altPath -ErrorAction Stop
+                            }
+                        } catch {
+                            Write-Warning (("  [USB Fix] Ignoring non-fatal Remove-PartitionAccessPath error on {0} (Disk {1} Partition {2}): {3}" -f $cleanPath, $DiskNumber, $PartitionNumber, $_.Exception.Message))
+                        }
                     }
+                }
+            }
+            function script:Add-PartitionAccessPath {
+                [CmdletBinding()]
+                param(
+                    [uint32]$DiskNumber,
+                    [uint32]$PartitionNumber,
+                    [string]$AccessPath,
+                    [switch]$AssignDriveLetter
+                )
+                try {
+                    if ($AssignDriveLetter) {
+                        Storage\Add-PartitionAccessPath -DiskNumber $DiskNumber -PartitionNumber $PartitionNumber -AssignDriveLetter -ErrorAction Stop
+                    } elseif (-not [string]::IsNullOrWhiteSpace($AccessPath)) {
+                        Storage\Add-PartitionAccessPath -DiskNumber $DiskNumber -PartitionNumber $PartitionNumber -AccessPath $AccessPath -ErrorAction Stop
+                    }
+                } catch {
+                    Write-Warning (("  [USB Fix] Ignoring non-fatal Add-PartitionAccessPath error (Disk {0} Partition {1}): {2}" -f $DiskNumber, $PartitionNumber, $_.Exception.Message))
                 }
             }
         }
